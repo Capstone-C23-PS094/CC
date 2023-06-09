@@ -1,4 +1,0 @@
-# FARMGENIUS API
-
-
-
