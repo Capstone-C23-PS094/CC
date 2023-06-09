@@ -3,7 +3,6 @@ const router = express.Router();
 import { upload } from '../middleware/multer.js';
 import { Storage } from '@google-cloud/storage';
 import dbPool from '../config/connection.js';
-import { detectionValidate } from '../validation/detectionSchema.js';
 
 // Buat instansi penyimpanan Google Cloud Storage
 const storage = new Storage({
