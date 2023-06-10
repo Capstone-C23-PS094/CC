@@ -41,7 +41,10 @@ const getByIdDisease = async (req, res) => {
                 code: 200,
                 status: 'OK',
                 message: 'Berhasil mengambil data penyakit',
-                data: data,
+                data: {
+                    disease_id: data[0].disease_id, // Sertakan disease_id dalam respons
+                    ...data[0]
+                },
             });
         }
     } catch (error) {
@@ -64,7 +67,10 @@ const postDisease = async (req, res) => {
             code: 200,
             status: "OK",
             message: 'Data penyakit berhasil ditambahkan',
-            data: req.body,
+            data: {
+                disease_id: disease_id, // Sertakan disease_id dalam respons
+                ...req.body
+            },
         })
     } catch (error) {
         res.status(500).json({
