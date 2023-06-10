@@ -24,7 +24,6 @@ const getRecommend = async (req, res) => {
 }
 
 //get data by id
-//get data by id
 const getByIdRecommend = async (req, res) => {
     const { recommendation_id } = req.params;
     try {
