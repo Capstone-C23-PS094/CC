@@ -1,6 +1,4 @@
-## Farmgenius-API
-
-# 🌱 FarmGenius Mobile Application 
+# 🌱 FarmGenius API Application 
 Smart agriculture solution using AI for Indonesian farmers: crop recommendations, disease management, sustainability
 
 ## Main Feature
