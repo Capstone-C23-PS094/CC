@@ -35,7 +35,7 @@ Smart agriculture solution using AI for Indonesian farmers: crop recommendations
 
 
 The service available:
-> Base url of this service is: http://localhost:4000/
+> Base url of this service is: http://localhost:5000/
 
 - Authentications
   <pre>POST /login</pre>
