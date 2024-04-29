@@ -1,4 +1,4 @@
-import { registrationAuthModel, checkEmailRegistered, loginAuthModel } from '../models/authModel.js'
+import { registrationAuthModel, checkedEmailRegistered, loginAuthModel, logoutAuthModel } from '../models/authModel.js'
 import bcrypt from 'bcrypt';
 import { nanoid } from "nanoid"
 import dotenv from 'dotenv'
@@ -13,7 +13,7 @@ const registration = async (req, res) => {
     const dates = new Date();
     try {
         // Cek ketika email sudah digunakan
-        const isEmailRegistered = await checkEmailRegistered(body.email);
+        const isEmailRegistered = await checkedEmailRegistered(body.email);
         if (isEmailRegistered) {
             return res.status(400).json({
                 code: 400,
@@ -75,7 +75,7 @@ const login = async (req, res) => {
             return res.status(400).json({
                 code: 400,
                 status: 'BAD REQUEST',
-                message: 'Password salah',
+                message: 'Password tidak sesuai',
                 data: null,
             });
         } else {
@@ -107,7 +107,69 @@ const login = async (req, res) => {
     }
 }
 
+//refresh token
+const refresh = async (req, res) => {
+    const refreshToken = req.body.refreshToken
+
+    if(refreshToken) {
+        return res.status(401).json({
+            message: 'Refresh token not found'
+        })
+    }
+
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_KEY, (err, decoded) => {
+        if(err) {
+            return res.status(403).json({
+                message: 'Failed to authenctication refresh token'
+            })
+        }
+
+        const user = {id: decoded.user_id, email: decoded.email}
+        console.log(user)
+
+        const accessToken = jwt.sign(user, process. SECRET_KEY, {expiresIn : '60d'})
+
+        res.json({
+            code : 200,
+            status: 'OK',
+            message: 'Refresh token successfully',
+            data: {accessToken}
+        })
+    })
+}
+
+//Logout
+const logout = async(req, res) => {
+    try {
+        if(req.header.authorization) {
+            const token = req.headers.authorization.split(' ')[1]
+            const [data] = await logoutAuthModel(token) 
+            res.json({
+                code : 200,
+                status: 'OK',
+                message: 'Logout successfully',
+                data : null
+            })
+        } else {
+            res.json({
+                code : 422,
+                status: 'unprocessable entity',
+                message: 'Token is expired',
+                data: null
+            })
+        }
+    } catch (error) {
+     res.status(500).json({
+        code : 500,
+        status: 'INTERNAL SERVER ERROR',
+        message : error,
+        data: null
+     })   
+    }
+}
 export {
     registration,
-    login
+    login,
+    refresh,
+    logout
 }

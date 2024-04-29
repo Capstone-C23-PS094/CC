@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 import dbPool from '../config/connection.js';
 
-// Definisikan rute GET untuk mendapatkan histori gambar
+// GET untuk mendapatkan histori gambar
 router.get('/history_detection', async (req, res, next) => {
   try {
     const query = 'SELECT * FROM detection';
@@ -14,7 +14,7 @@ router.get('/history_detection', async (req, res, next) => {
   }
 });
 
-// Definisikan rute GET untuk mendapatkan histori gambar berdasarkan ID
+//GET untuk mendapatkan histori gambar berdasarkan ID
 router.get('/history_detection/:id', async (req, res, next) => {
   const detectionId = req.params.id;
   try {
@@ -31,7 +31,7 @@ router.get('/history_detection/:id', async (req, res, next) => {
   }
 });
 
-// Definisikan rute DELETE untuk menghapus histori gambar berdasarkan ID
+//DELETE untuk menghapus histori gambar berdasarkan ID
 router.delete('/delete_history/:id', async (req, res, next) => {
   const detectionId = req.params.id;
   try {

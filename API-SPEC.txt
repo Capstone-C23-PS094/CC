@@ -1,0 +1,77 @@
+STANDARD API
+
+{root.api}/{version.api}/{grouping}/{endpoint}
+
+SAMPLE:
+http://farmgenius-api.capstoneproject.com/v1/auth/login
+
+STANDARD STATUS RESPONSE:
+200 -> OK => Call API Success
+201 -> CREATED => Post Success
+400 -> BAD REQUEST => Error on client  side (input missing, etc..)
+401 -> UNAUTHORIZED => User not authorized to the request
+403 -> FORBIDDEN => User not allowed to access
+404 -> NOT FOUND => Request endpoint not found
+500 -> INTERNAL SERVER ERROR => Error on server side
+502 -> BAD GATEWAY => Invalid Response from another request
+ETC..
+
+GROUP: Authentication
+[1] - Register
+{root.api}/{version.api}/auth/register
+req: 
+{
+    "name" : "Testing API,
+    "email : "testingapi@gmail.com,
+    "password" : "Testing123"
+}
+
+res: 
+{
+    "message" : "Register Success",
+    "data": {
+        "id" : "nanoid(16)"
+        "name" : "Testing API",
+        "email": "testingapi@gmail.com"
+    }
+}
+
+err-response : 
+400 -> Input yang dimasukkan tidak valid
+
+
+[2] - Login
+{root.api}/{version.api}/auth/login
+req: 
+{
+    "email : "testingapi@gmail.com,
+    "password" : "Testing123"
+}
+
+{
+    "message" : "Login Success",
+}
+
+
+GROUP: DISEASE
+[1] CREATE DISEASE
+req: {
+    "name" : "Disease Name",
+    "desc" : "Description of the disease"
+    "solution" : "Solution of disease"
+}
+
+res: 
+{
+    "message" : "Data penyakit berhasil ditambahkan,
+    "data" : {
+        code : 200,
+        status: "OK",
+        data: data
+    }   
+}
+[2] GET DISEASE
+[3] UPDATE DISEASE
+[4] DELETE DISEASE
+
+---UPDATE SOON---

@@ -7,10 +7,8 @@ import logs from './middleware/logs.js'
 import diseaseRoute from './route/diseaseRoute.js'
 import plantRoute from './route/plantRoute.js'
 import authRoute from './route/authRoute.js'
-import recommendRoute from './route/recommendRoute.js'
-import detectionRoute from './route/detectionRoute.js'
 import historyRoute from './route/historyRoute.js'
-
+import userRoute from './route/userRoute.js'
 
 
 dotenv.config();
@@ -22,13 +20,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); 
 app.use(logs);
 
+app.get('/', (req, res, next) => {
+  res.json('hello world')
+})
+
 // router
 app.use(authRoute);
 app.use(diseaseRoute);
 app.use(plantRoute);
-app.use(recommendRoute);
-app.use(detectionRoute);
 app.use(historyRoute);
+app.use(userRoute)
 
 
 //handling routes yang tidak ditemukan
@@ -42,9 +43,8 @@ app.use((req, res, next) => {
     res.status(status).json({ error: { status, message } });
   });
 
-
 //port
 const port = process.env.PORT || 5000
 app.listen(`${port}`, () => {
-    console.log(`Server berjalan di port ${port}`)
+    console.log(`Server running on port ${port}`)
 })

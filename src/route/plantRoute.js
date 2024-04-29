@@ -5,8 +5,11 @@ import auth from '../middleware/authentication.js'
 
 
 import {
-    getPlant, getByIdPlant,
-    postPlant
+    getPlant,
+    postPlant,
+    getPlantById,
+    updatePlant,
+    deletePlant
 } from '../controller/plantController.js'
 
 const router = express.Router()
@@ -16,10 +19,16 @@ const router = express.Router()
 router.get('/plants', auth, getPlant)
 
 // GET plant BY ID
-router.get('/plants/:plant_id', auth, getByIdPlant)
+router.get('/plant/:plant_id', auth, getPlantById)
 
 // POST plant
-router.post('/plants', auth, validate(plantValidate), postPlant)
+router.post('/plant', auth, validate(plantValidate), postPlant)
+
+//UPDATE plant
+router.put('/plant/:plant_id', auth, validate(plantValidate), updatePlant)
+
+//DELETE plant
+router.delete('/plant/: plant_id', auth,validate(plantValidate), deletePlant)
 
 
 export default router;

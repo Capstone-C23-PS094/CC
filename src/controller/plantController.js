@@ -1,11 +1,13 @@
 import {
     getPlantModel,
-    getByIdPlantModel,
-    postPlantModel
+    getPlantModelById,
+    postPlantModel,
+    updatePlantModel,
+    deletePlantModel
 } from "../models/plantModel.js"
 import { nanoid } from "nanoid"
 
-// Get data
+// GET DATA
 const getPlant = async (req, res) => {
     try {
         const [data] = await getPlantModel()
@@ -25,11 +27,11 @@ const getPlant = async (req, res) => {
     }
 }
 
-// Get byId
-const getByIdPlant = async (req, res) => {
+// GET DATA BY ID
+const getPlantById = async (req, res) => {
     const { plant_id } = req.params
     try {
-        const [data] = await getByIdPlantModel(plant_id)
+        const [data] = await getPlantModelById(plant_id)
         if (data.length === 0) {
             res.status(404).json({
                 code: 404,
@@ -55,7 +57,7 @@ const getByIdPlant = async (req, res) => {
     }
 }
 
-// POST
+// POST DATA
 const postPlant = async (req, res) => {
     const { body } = req
     const plant_id = nanoid(16);
@@ -77,8 +79,74 @@ const postPlant = async (req, res) => {
     }
 }
 
+// UPDATE DATA
+const updatePlant = async (req, res) => {
+    const { body } = req
+    const plant_id = nanoid(16);
+    try {
+        const [data] = await updatePlantModel(body, plant_id)
+        if(data.affectedRows === 0) {
+            res.status(404).json({
+                code: 404,
+                status: 'NOT FOUND',
+                message: 'Data not found',
+                data: null
+            })
+        } else {
+            res.json({
+                code: 200,
+                status: "OK",
+                message: 'Berhasil memperbarui data tanaman',
+                data: { plant_id, ...req.body },
+            })
+        }
+        
+    } catch (error) {
+        res.status(500).json({
+            code: 500,
+            status: 'INTERNAL SERVER ERROR',
+            message: error,
+            data: req.body,
+        })
+    }
+}
+
+//DELETE DATA
+const deletePlant = async (req, res) => {
+    const { body } = req
+    const plant_id = nanoid(16);
+    try {
+        const [data] = await deletePlantModel(body, plant_id)
+        if(data.affectedRows === 0) {
+            res.status(404).json({
+                code: 404,
+                status: 'NOT FOUND',
+                message: 'Data not found',
+                data: null
+            })
+        } else {
+            res.json({
+                code: 200,
+                status: "OK",
+                message: 'Berhasil menghapus data tanaman',
+                data: { plant_id, ...req.body },
+            })
+        }
+        
+    } catch (error) {
+        res.status(500).json({
+            code: 500,
+            status: 'INTERNAL SERVER ERROR',
+            message: error,
+            data: req.body,
+        })
+    }
+}
+
 export {
     getPlant,
-    getByIdPlant,
-    postPlant
+    getPlantById,
+    postPlant,
+    updatePlant,
+    deletePlant
 }
