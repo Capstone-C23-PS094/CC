@@ -49,10 +49,10 @@ const predictionPlant = async (req, res, plant) => {
     const [disease_id] = await getDiseaseId(predict)
 
     // kondisi jika response status sama dengan 200
-    if (response.status === 200 && predict.prediction !== "Not Corn Clean" && predict.prediction !== "Not Pepper bell" && predict.prediction !== "non_potato") {
+    if (response.status === 200 && predict.prediction !== "Not Corn Clean" && predict.prediction !== "Not rise" && predict.prediction !== "non_potato") {
       const extension = mimetype.split('/')[1]
       const imageName = `${nanoid()}.${extension}` // Nama file yang digunakan untuk menyimpan gambar
-      const bucketName = 'botani-scan-image' // nama bucket
+      const bucketName = 'farmgenius-scan-image' // nama bucket
       const bucket = storage.bucket(bucketName)
       const file = bucket.file(imageName)
 

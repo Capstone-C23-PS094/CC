@@ -12,14 +12,14 @@ const getHistory = async (req, res) => {
             res.status(404).json({
                 code: 404,
                 status: 'NOT FOUND',
-                message: 'Data prediction not found',
+                message: 'Data prediction tidak ditemukan',
                 data: null,
             })
         } else {
             res.json({
                 code: 200,
                 status: 'OK',
-                message: 'Success grab data prediction',
+                message: 'Berhasil mengambil data prediction',
                 data: data,
             })
         }
@@ -42,14 +42,14 @@ const getByIdHistory = async (req, res) => {
             res.status(404).json({
                 code: 404,
                 status: 'NOT FOUND',
-                message: 'Data prediction not found',
+                message: 'Data prediction tidak ditemukan',
                 data: null,
             })
         } else {
             res.json({
                 code: 200,
                 status: 'OK',
-                message: 'Success grab data prediction',
+                message: 'Berhasil mengambil data prediction',
                 data: data,
             })
         }
@@ -76,7 +76,7 @@ const deleteHistory = async (req, res) => {
                 data: null,
             })
         } else {
-            const bucketName = 'botani-scan-image'
+            const bucketName = 'farmgenius-bucket-image'
             const imageUrl = data.img_url
             // Menggunakan fungsi split() untuk memisahkan URL berdasarkan '/'
             const urlParts = imageUrl.split('/')
@@ -90,7 +90,7 @@ const deleteHistory = async (req, res) => {
             res.json({
                 code: 200,
                 status: 'OK',
-                message: 'success deleted history',
+                message: 'Data history berhasil dihapus',
                 data: null,
             })
         }
