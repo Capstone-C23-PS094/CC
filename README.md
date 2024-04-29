@@ -68,7 +68,7 @@ The service available:
   <pre>POST /prediction/peppers</pre>
   <pre>POST /predictions/rises</pre>
 
-- History (under development)
+- History 
   <pre>GET  /historys/</pre>
   <pre>GET  /history/{historyId}</pre>
   <pre>POST /history</pre>
