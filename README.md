@@ -96,7 +96,7 @@ This project run in node js version 18.13.0.
 ```bash
 npm install
 ```
-2. Make your database and export from database/botaniscan.sql
+2. Make your database and export from database/farmgenius.sql
 3. Run server:
 <P>-development<p>
 
